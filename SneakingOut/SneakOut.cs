@@ -107,25 +107,24 @@ namespace SneakingOut
             //This is Dijkstra’s shortest path algorithm, it will navigate through each node in the graph
             //starting with our starting node (index 1) and it will set the distance value of each neighbor node 
             //to the shortest distance from it to the starting node.
-
-            //start with an empty list of already visited nodes
-            var visited = new List<Node>();
+            
 
             //from the graph, get the starting node and set it's distance to 0
             //this node is the closest to the starting node because it IS the starting node.
             var start = graph.Nodes.Single(n => n.Index == 1);
             start.Distance = 0;
-            
+
             //Loop until we have visited every node in the graph
-            while (visited.Count != graph.Nodes.Count)
+            int visitedCount = 0;
+            while (visitedCount != graph.Nodes.Count)
             {
                 //Grab the next node in the graph that hasn't been visited with the shortest distance
                 // --In the first iteration, it will grab our starting node since its distance is 0
                 var min = graph.Nodes.Where(n => !n.IsVisited).OrderBy(n => n.Distance).First();
 
                 //Mark it as visited
-                visited.Add(min);
                 min.IsVisited = true;
+                visitedCount++;
 
                 //Loop through this node's neighbors and calculate the distance to each one
                 foreach (var neighbor in min.Neighbors)
@@ -140,7 +139,7 @@ namespace SneakingOut
 
             //Once we have visited all the nodes, every node in the graph has a variable Distance that indicates how close it is to the starting node.
             //Simply grab the ending node, and give back its distance.
-            var end = visited.OrderByDescending(n => n.Index).First();
+            var end = graph.Nodes.OrderByDescending(n => n.Index).First();
             return end.Distance;
         }
     }
