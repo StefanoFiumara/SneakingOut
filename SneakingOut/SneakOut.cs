@@ -69,7 +69,8 @@ namespace SneakingOut
 
         private List<Edge> BuildEdges(IReadOnlyList<string> input, int edgeCount, IReadOnlyList<Node> nodes)
         {
-            //A little complicated..for each edge definition, find the start and end node from the node list to insert them into the edge class.
+            //A little complicated..for each edge definition, find the start and end node from the node list 
+            //to insert them into the edge class.
             var edges = new List<Edge>();
             for (int i = 0; i < edgeCount; i++)
             {
@@ -137,7 +138,8 @@ namespace SneakingOut
                 }
             }
 
-            //Once we have visited all the nodes, every node in the graph has a variable Distance that indicates how close it is to the starting node.
+            //Once we have visited all the nodes, every node in the graph has a variable Distance 
+            //that indicates how close it is to the starting node.
             //Simply grab the ending node, and give back its distance.
             var end = graph.Nodes.OrderByDescending(n => n.Index).First();
             return end.Distance;
